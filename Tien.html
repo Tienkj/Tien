@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Lưu Trữ Liên Kết Video</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+        .video-container { 
+            margin-bottom: 20px; 
+            border: 1px solid #ddd; 
+            padding: 10px; 
+        }
+        input, button { 
+            margin: 5px 0; 
+            padding: 5px; 
+        }
+        video { 
+            max-width: 100%; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Lưu Trữ Liên Kết Video</h1>
+    
+    <div id="videoInputSection">
+        <input type="text" id="videoLinkInput" placeholder="Nhập liên kết video">
+        <input type="text" id="videoNameInput" placeholder="Tên video (tùy chọn)">
+        <button onclick="addVideoLink()">Thêm Video</button>
+    </div>
+
+    <div id="videoList"></div>
+
+    <script>
+        function addVideoLink() {
+            const videoLink = document.getElementById('videoLinkInput').value;
+            const videoName = document.getElementById('videoNameInput').value || 'Video không có tên';
+            
+            if (!videoLink) {
+                alert('Vui lòng nhập liên kết video');
+                return;
+            }
+
+            const videoList = document.getElementById('videoList');
+            const videoContainer = document.createElement('div');
+            videoContainer.className = 'video-container';
+            
+            videoContainer.innerHTML = `
+                <h3>${videoName}</h3>
+                <video controls>
+                    <source src="${videoLink}" type="video/mp4">
+                    Trình duyệt của bạn không hỗ trợ video.
+                </video>
+                <button onclick="this.parentElement.remove()">Xóa</button>
+            `;
+
+            videoList.appendChild(videoContainer);
+            
+            // Clear inputs
+            document.getElementById('videoLinkInput').value = '';
+            document.getElementById('videoNameInput').value = '';
+        }
+    </script>
+</body>
+</html>
